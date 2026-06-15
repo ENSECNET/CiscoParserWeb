@@ -2,11 +2,16 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy · ENSECNET CiscoParser Web</title>
 <link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js"></script>
 </head>
 <body data-root="../" data-page="pages/privacy.html">
 <div class="layout">
-<aside class="sidebar"><div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<aside class="sidebar">
+<div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div>
+<div class="lang-switch"></div>
+<nav class="nav"></nav></aside>
 <main class="content">
+<div data-lang="en">
 <h1>Privacy</h1>
 <p class="sub">The web edition never pushes to NetBox, and never sees your token.</p>
 <div class="callout">No config you paste is stored. No NetBox URL or token is ever sent to this service. The model and the import script are generated and handed back to you — that is the whole interaction.</div>
@@ -16,7 +21,19 @@
 <p>A downloadable <code>import.py</code> that contains your parsed model inline. You run it yourself, on your own host, against your own NetBox:</p>
 <pre><code>NETBOX_URL=http://netbox.local:8080 NETBOX_TOKEN=xxxx python3 import.py</code></pre>
 <p>The token is read from your environment and never leaves your machine.</p>
-<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</div>
+<div data-lang="sk">
+<h1>Súkromie</h1>
+<p class="sub">Webová edícia nikdy nepushuje do NetBoxu a nikdy nevidí tvoj token.</p>
+<div class="callout">Žiadny config, ktorý vložíš, sa neukladá. Žiadna NetBox URL ani token sa nikdy neodošlú tejto službe. Model a import skript sa vygenerujú a vrátia tebe — to je celá interakcia.</div>
+<h2>Prečo žiadny živý push</h2>
+<p>NetBox žije v privátnej sieti, na ktorú Cloudflare edge nedosiahne, a API token je citlivý. Push z verejnej stránky by znamenal posielať admin token cez tretiu stranu — presne to, čo by bezpečnostne uvažujúci operátor mal odmietnuť.</p>
+<h2>Čo dostaneš namiesto toho</h2>
+<p>Stiahnuteľný <code>import.py</code>, ktorý obsahuje tvoj naparsovaný model priamo v sebe. Spustíš ho sám, na svojom vlastnom hoste, proti svojmu vlastnému NetBoxu:</p>
+<pre><code>NETBOX_URL=http://netbox.local:8080 NETBOX_TOKEN=xxxx python3 import.py</code></pre>
+<p>Token sa načíta z tvojho prostredia a nikdy neopustí tvoj stroj.</p>
+</div>
+<footer data-i18n="footer">ENSECNET · open-source · <em>Great infrastructure is invisible — its absence is not.</em></footer>
 </main></div>
 <script src="../assets/nav.js"></script>
 </body></html>

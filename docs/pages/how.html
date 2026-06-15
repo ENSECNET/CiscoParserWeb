@@ -2,11 +2,16 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How it works · ENSECNET CiscoParser Web</title>
 <link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js"></script>
 </head>
 <body data-root="../" data-page="pages/how.html">
 <div class="layout">
-<aside class="sidebar"><div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<aside class="sidebar">
+<div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div>
+<div class="lang-switch"></div>
+<nav class="nav"></nav></aside>
 <main class="content">
+<div data-lang="en">
 <h1>How it works</h1>
 <p class="sub">A pure-JavaScript parser running on the Cloudflare edge — no server, no database.</p>
 <h2>Endpoints</h2>
@@ -21,7 +26,24 @@
 </ul>
 <h2>Parser parity</h2>
 <p>The JS parser produces the same model shape as the Python on-prem edition (<code>name, platform, interfaces[], vlans[], vrfs[], config_context{}</code>), so the JSON and the generated script are interchangeable with the on-prem tool.</p>
-<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</div>
+<div data-lang="sk">
+<h1>Ako to funguje</h1>
+<p class="sub">Parser v čistom JavaScripte bežiaci na Cloudflare edge — žiadny server, žiadna databáza.</p>
+<h2>Endpointy</h2>
+<table><tr><th>Metóda</th><th>Cesta</th><th>Účel</th></tr>
+<tr><td>GET</td><td><code>/</code></td><td>UI konvertora</td></tr>
+<tr><td>POST</td><td><code>/api/parse</code></td><td><code>{config}</code> → NetBox model JSON</td></tr>
+<tr><td>POST</td><td><code>/api/snippet</code></td><td><code>{model}</code> → text <code>import.py</code></td></tr></table>
+<h2>Výstup</h2>
+<ul>
+<li><strong>Model JSON</strong> — vlož do automatizácie, porovnaj s predošlým, alebo archivuj.</li>
+<li><strong>import.py</strong> — samostatný pynetbox skript, ktorý spustíš na hoste s dosahom na tvoj vlastný NetBox, s tvojím <code>NETBOX_URL</code> / <code>NETBOX_TOKEN</code>.</li>
+</ul>
+<h2>Parita parsera</h2>
+<p>JS parser produkuje rovnaký tvar modelu ako Python on-prem edícia (<code>name, platform, interfaces[], vlans[], vrfs[], config_context{}</code>), takže JSON aj vygenerovaný skript sú zameniteľné s on-prem nástrojom.</p>
+</div>
+<footer data-i18n="footer">ENSECNET · open-source · <em>Great infrastructure is invisible — its absence is not.</em></footer>
 </main></div>
 <script src="../assets/nav.js"></script>
 </body></html>

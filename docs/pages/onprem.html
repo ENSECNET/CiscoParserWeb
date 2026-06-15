@@ -2,17 +2,30 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>On-prem edition · ENSECNET CiscoParser Web</title>
 <link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js"></script>
 </head>
 <body data-root="../" data-page="pages/onprem.html">
 <div class="layout">
-<aside class="sidebar"><div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<aside class="sidebar">
+<div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div>
+<div class="lang-switch"></div>
+<nav class="nav"></nav></aside>
 <main class="content">
+<div data-lang="en">
 <h1>On-prem edition</h1>
 <p class="sub">When you want a live NetBox push instead of a download.</p>
 <p>The <a href="https://github.com/ensecnet/CiscoParser">CiscoParser</a> repo is the on-prem edition: FastAPI + Docker on a Proxmox LXC, pushing parsed devices straight into NetBox over your local network.</p>
 <div class="flow">.cfg ──► parse ──► transform ──► netbox_push ──► NetBox</div>
 <p>Same parser logic, same model shape — the on-prem edition adds the live push and a NetBox connection test. Use the web edition for quick conversions, the on-prem edition for routine documentation against your own NetBox.</p>
-<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</div>
+<div data-lang="sk">
+<h1>On-prem edícia</h1>
+<p class="sub">Keď chceš živý push do NetBoxu namiesto stiahnutia.</p>
+<p>Repo <a href="https://github.com/ensecnet/CiscoParser">CiscoParser</a> je on-prem edícia: FastAPI + Docker na Proxmox LXC, pushuje naparsované zariadenia priamo do NetBoxu cez tvoju lokálnu sieť.</p>
+<div class="flow">.cfg ──► parse ──► transform ──► netbox_push ──► NetBox</div>
+<p>Rovnaká logika parsera, rovnaký tvar modelu — on-prem edícia pridáva živý push a test pripojenia na NetBox. Webovú edíciu použi na rýchle konverzie, on-prem edíciu na rutinnú dokumentáciu proti tvojmu vlastnému NetBoxu.</p>
+</div>
+<footer data-i18n="footer">ENSECNET · open-source · <em>Great infrastructure is invisible — its absence is not.</em></footer>
 </main></div>
 <script src="../assets/nav.js"></script>
 </body></html>

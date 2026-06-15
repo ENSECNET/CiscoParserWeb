@@ -2,11 +2,16 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deploy on Cloudflare · ENSECNET CiscoParser Web</title>
 <link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js"></script>
 </head>
 <body data-root="../" data-page="pages/deploy.html">
 <div class="layout">
-<aside class="sidebar"><div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<aside class="sidebar">
+<div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div>
+<div class="lang-switch"></div>
+<nav class="nav"></nav></aside>
 <main class="content">
+<div data-lang="en">
 <h1>Deploy on Cloudflare</h1>
 <p class="sub">The standard ENSECNET workflow: GitHub repo → Cloudflare import → auto-deploy.</p>
 <ol>
@@ -16,7 +21,19 @@
 <li><code>wrangler.jsonc</code> binds the custom domain <code>cisco.ensecnet.net</code>.</li>
 </ol>
 <p>Push to <code>main</code> → Cloudflare auto-deploys. No build step, no dependencies — the Worker is plain JavaScript.</p>
-<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</div>
+<div data-lang="sk">
+<h1>Nasadenie na Cloudflare</h1>
+<p class="sub">Štandardný ENSECNET workflow: GitHub repo → import do Cloudflare → auto-deploy.</p>
+<ol>
+<li>Nahraj toto repo na GitHub (<code>ensecnet/CiscoParserWeb</code>).</li>
+<li>Cloudflare → Workers &amp; Pages → <strong>Import a repository</strong> → vyber repo.</li>
+<li>Deploy command: <code>npx wrangler deploy</code>. Build command: prázdne.</li>
+<li><code>wrangler.jsonc</code> nabinduje custom doménu <code>cisco.ensecnet.net</code>.</li>
+</ol>
+<p>Push na <code>main</code> → Cloudflare auto-deployne. Žiadny build krok, žiadne závislosti — Worker je čisté JavaScript.</p>
+</div>
+<footer data-i18n="footer">ENSECNET · open-source · <em>Great infrastructure is invisible — its absence is not.</em></footer>
 </main></div>
 <script src="../assets/nav.js"></script>
 </body></html>

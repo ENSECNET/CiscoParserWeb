@@ -2,11 +2,16 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Overview · ENSECNET CiscoParser Web</title>
 <link rel="stylesheet" href="assets/style.css">
+<script src="assets/i18n.js"></script>
 </head>
 <body data-root="" data-page="index.html">
 <div class="layout">
-<aside class="sidebar"><div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<aside class="sidebar">
+<div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div>
+<div class="lang-switch"></div>
+<nav class="nav"></nav></aside>
 <main class="content">
+<div data-lang="en">
 <h1>CiscoParser Web</h1>
 <p class="sub">A public, zero-install converter — turn a Cisco running-config into a NetBox-ready model, in your browser.</p>
 <span class="badge ok">Cloudflare Worker</span> <span class="badge">pure JavaScript</span> <span class="badge">nothing stored</span>
@@ -20,7 +25,23 @@
 <table><tr><th>Edition</th><th>Runs on</th><th>NetBox</th></tr>
 <tr><td>CiscoParser Web (this repo)</td><td>Cloudflare Worker</td><td>Download JSON + generated import script</td></tr>
 <tr><td><a href="https://github.com/ensecnet/CiscoParser">CiscoParser</a></td><td>Proxmox LXC + Docker</td><td>Live push over the local network</td></tr></table>
-<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</div>
+<div data-lang="sk">
+<h1>CiscoParser Web</h1>
+<p class="sub">Verejný konverter bez inštalácie — premeň Cisco running-config na model pripravený pre NetBox, priamo v prehliadači.</p>
+<span class="badge ok">Cloudflare Worker</span> <span class="badge">čisté JavaScript</span> <span class="badge">nič sa neukladá</span>
+<div class="callout">Vlož Cisco IOS-XE <code>running-config</code> a dostaneš štruktúrovaný NetBox model — rozhrania, IP, VLAN-y, VRF-y, plus routing / AAA / SNMP zachytené ako config context. Všetko beží v relácii tvojho prehliadača. Žiadna backend databáza, žiadne prihlasovacie údaje neopustia tvoj stroj.</div>
+<h2>Ako to funguje</h2>
+<div class="flow">vlož config ──► parse (Worker, JS) ──► NetBox model JSON
+                                       ├─► Stiahni JSON
+                                       └─► Stiahni import.py (spustíš sám)</div>
+<p>Keďže NetBox žije v privátnej sieti a token je citlivý, webová edícia <strong>nepushuje</strong>. Vráti model ako JSON a samostatný <code>import.py</code>, ktorý spustíš proti svojmu vlastnému NetBoxu. Pozri <a href="pages/privacy.html">Súkromie</a>.</p>
+<h2>Edície</h2>
+<table><tr><th>Edícia</th><th>Beží na</th><th>NetBox</th></tr>
+<tr><td>CiscoParser Web (toto repo)</td><td>Cloudflare Worker</td><td>Stiahnutie JSON + vygenerovaný import skript</td></tr>
+<tr><td><a href="https://github.com/ensecnet/CiscoParser">CiscoParser</a></td><td>Proxmox LXC + Docker</td><td>Živý push cez lokálnu sieť</td></tr></table>
+</div>
+<footer data-i18n="footer">ENSECNET · open-source · <em>Great infrastructure is invisible — its absence is not.</em></footer>
 </main></div>
 <script src="assets/nav.js"></script>
 </body></html>

@@ -2,18 +2,32 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Why a parser · ENSECNET CiscoParser Web</title>
 <link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js"></script>
 </head>
 <body data-root="../" data-page="pages/why.html">
 <div class="layout">
-<aside class="sidebar"><div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<aside class="sidebar">
+<div class="brand"><span class="dot">CP</span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div>
+<div class="lang-switch"></div>
+<nav class="nav"></nav></aside>
 <main class="content">
+<div data-lang="en">
 <h1>Why a parser</h1>
 <p class="sub">A running device's config is the most authoritative description of how it is set up. Use it.</p>
 <p>A network device knows everything about itself — interfaces, addresses, VLANs, VRFs, routing, authentication. But that knowledge lives only on the box, as flat text in a vendor dialect. Building an inventory, an IPAM or an audit by hand means retyping what the device already knows, and the result is stale the moment it is written.</p>
 <p>CiscoParser reads the config the way an engineer does — understanding the hierarchical parent/child structure, not just lines — and returns a structured model you can keep, diff and import. The web edition makes that a single paste, with nothing to install and nothing stored.</p>
 <h2>Where it fits</h2>
 <p>This is an import / documentation tool, not a configuration manager. It pairs with a standalone NetBox deployment: NetBox is the store, CiscoParser is one of the doors data comes in through.</p>
-<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</div>
+<div data-lang="sk">
+<h1>Načo parser</h1>
+<p class="sub">Config bežiaceho zariadenia je najautoritatívnejší popis toho, ako je nastavené. Využi ho.</p>
+<p>Sieťové zariadenie o sebe vie všetko — rozhrania, adresy, VLAN-y, VRF-y, smerovanie, autentifikáciu. Lenže táto znalosť žije len na boxe, ako plochý text vo vendorskom dialekte. Budovať inventár, IPAM či audit ručne znamená prepisovať to, čo zariadenie už vie, a výsledok je neaktuálny v okamihu, keď vznikne.</p>
+<p>CiscoParser číta config tak ako inžinier — rozumie hierarchickej štruktúre rodič/dieťa, nielen riadkom — a vráti štruktúrovaný model, ktorý vieš uchovať, porovnať aj importovať. Webová edícia z toho robí jediné vloženie, bez inštalácie a bez ukladania.</p>
+<h2>Kam zapadá</h2>
+<p>Toto je nástroj na import / dokumentáciu, nie správca konfigurácie. Páruje sa so samostatným NetBox nasadením: NetBox je úložisko, CiscoParser sú jedny z dverí, ktorými dáta vstupujú.</p>
+</div>
+<footer data-i18n="footer">ENSECNET · open-source · <em>Great infrastructure is invisible — its absence is not.</em></footer>
 </main></div>
 <script src="../assets/nav.js"></script>
 </body></html>
