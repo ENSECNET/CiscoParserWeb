@@ -8,7 +8,7 @@ Paste a Cisco IOS-XE `running-config`, get a NetBox-ready model. Nothing stored,
 
 [![Docs](https://img.shields.io/badge/📖_Documentation-View_full_docs-0bb3a0?style=for-the-badge)](https://ensecnet.github.io/CiscoParserWeb/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-131c2b?style=for-the-badge)](LICENSE)
-[![On-prem edition](https://img.shields.io/badge/On--prem-CiscoParser-2ea043?style=for-the-badge)](https://github.com/TencoNemaStrach/CiscoParser)
+[![On-prem edition](https://img.shields.io/badge/On--prem-CiscoParser-2ea043?style=for-the-badge)](https://github.com/ensecnet/CiscoParser)
 
 </div>
 
@@ -31,7 +31,7 @@ paste config ──► parse (Worker) ──► model JSON
                                   └─► Download import.py (run it yourself)
 ```
 
-Companion to the on-prem [CiscoParser](https://github.com/TencoNemaStrach/CiscoParser)
+Companion to the on-prem [CiscoParser](https://github.com/ensecnet/CiscoParser)
 (FastAPI + Docker, live NetBox push) and to a standalone NetBox deployment.
 
 ## Endpoints
@@ -44,7 +44,7 @@ Companion to the on-prem [CiscoParser](https://github.com/TencoNemaStrach/CiscoP
 
 ## Deploy
 
-1. Upload this repo to GitHub (`TencoNemaStrach/CiscoParserWeb`).
+1. Upload this repo to GitHub (`ensecnet/CiscoParserWeb`).
 2. Cloudflare → Workers & Pages → **Import a repository** → select the repo.
 3. Deploy command: `npx wrangler deploy`. Build command: empty.
 
