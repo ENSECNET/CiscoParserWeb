@@ -1,0 +1,8 @@
+{
+  "name": "ciscoparser",
+  "main": "src/index.js",
+  "compatibility_date": "2025-01-01",
+  "routes": [
+    { "pattern": "cisco.ensecnet.net", "custom_domain": true }
+  ]
+}
