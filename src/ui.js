@@ -1,4 +1,5 @@
 // ui.js — single-page UI served by the Worker, exported as a template string.
+// Bilingual EN/SK (primary EN); choice persists in localStorage.
 export const PAGE = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +19,13 @@ export const PAGE = `<!DOCTYPE html>
   header .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
   header h1{font-size:15px;margin:0;letter-spacing:.5px;font-weight:600}
   header .ver{color:var(--muted);font-size:12px}
+  header .spacer{flex:1}
+  .lang-switch{display:flex;gap:4px}
+  .lang-btn{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.5px;
+    padding:3px 10px;border:1px solid var(--line);background:var(--bg);color:var(--muted);
+    border-radius:5px;cursor:pointer}
+  .lang-btn:hover{background:var(--panel)}
+  .lang-btn.active{background:var(--accent);color:#02160a;border-color:var(--accent)}
   .lede{max-width:1000px;margin:0 auto;padding:22px 20px 0}
   .lede p{color:var(--muted);margin:0}
   main{max-width:1000px;margin:0 auto;padding:18px 20px 48px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -39,6 +47,7 @@ export const PAGE = `<!DOCTYPE html>
   .kpi b{display:block;font-size:18px;color:var(--accent)} .kpi span{font-size:11px;color:var(--muted)}
   .note{font-size:12px;color:var(--muted);margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
   footer{max-width:1000px;margin:0 auto;padding:0 20px 40px;color:var(--muted);font-size:12px}
+  [data-lang]{display:none}
   @media(max-width:760px){main{grid-template-columns:1fr}}
 </style>
 </head>
@@ -47,70 +56,114 @@ export const PAGE = `<!DOCTYPE html>
   <span class="dot"></span>
   <h1>ENSECNET&nbsp;·&nbsp;CISCOPARSER</h1>
   <span class="ver">Cisco IOS-XE → NetBox model · web</span>
+  <span class="spacer"></span>
+  <span class="lang-switch">
+    <button class="lang-btn" data-set="en">EN</button>
+    <button class="lang-btn" data-set="sk">SK</button>
+  </span>
 </header>
 
 <div class="lede">
-  <p>Paste a Cisco <code>running-config</code> and get a structured NetBox-ready
+  <p data-lang="en">Paste a Cisco <code>running-config</code> and get a structured NetBox-ready
   model — interfaces, IPs, VLANs, VRFs, plus routing/AAA/SNMP/etc. as config
   context. Everything runs in your browser session. Nothing is stored, no
   credentials leave your machine.</p>
+  <p data-lang="sk">Vlož Cisco <code>running-config</code> a dostaneš štruktúrovaný model
+  pripravený pre NetBox — rozhrania, IP, VLAN-y, VRF-y, plus routing/AAA/SNMP/atď. ako config
+  context. Všetko beží v relácii tvojho prehliadača. Nič sa neukladá, žiadne prihlasovacie
+  údaje neopustia tvoj stroj.</p>
 </div>
 
 <main>
   <section class="card">
-    <h2>Config input</h2>
-    <label>Upload running-config (.cfg / .txt)</label>
+    <h2><span data-lang="en">Config input</span><span data-lang="sk">Vstup configu</span></h2>
+    <label><span data-lang="en">Upload running-config (.cfg / .txt)</span><span data-lang="sk">Nahraj running-config (.cfg / .txt)</span></label>
     <input type="file" id="cfgFile" accept=".cfg,.txt,.conf">
-    <label>…or paste config text</label>
+    <label><span data-lang="en">…or paste config text</span><span data-lang="sk">…alebo vlož text configu</span></label>
     <textarea id="cfgText" placeholder="hostname CORE-RTR-01&#10;!&#10;interface GigabitEthernet0/0/0&#10; ip address 198.51.100.2 255.255.255.0"></textarea>
     <div class="btnrow">
-      <button onclick="parseCfg()">Convert</button>
-      <button class="ghost" onclick="loadSample()">Load sample</button>
+      <button onclick="parseCfg()"><span data-lang="en">Convert</span><span data-lang="sk">Konvertuj</span></button>
+      <button class="ghost" onclick="loadSample()"><span data-lang="en">Load sample</span><span data-lang="sk">Načítaj vzorku</span></button>
     </div>
     <div class="status" id="st"></div>
   </section>
 
   <section class="card">
-    <h2>NetBox model</h2>
+    <h2><span data-lang="en">NetBox model</span><span data-lang="sk">NetBox model</span></h2>
     <div class="kpi" id="kpi" style="display:none">
-      <div><b id="kIf">0</b><span>interfaces</span></div>
-      <div><b id="kVlan">0</b><span>vlans</span></div>
-      <div><b id="kVrf">0</b><span>vrfs</span></div>
-      <div><b id="kCtx">0</b><span>context</span></div>
+      <div><b id="kIf">0</b><span data-lang="en">interfaces</span><span data-lang="sk">rozhrania</span></div>
+      <div><b id="kVlan">0</b><span data-lang="en">vlans</span><span data-lang="sk">vlan-y</span></div>
+      <div><b id="kVrf">0</b><span data-lang="en">vrfs</span><span data-lang="sk">vrf-y</span></div>
+      <div><b id="kCtx">0</b><span data-lang="en">context</span><span data-lang="sk">context</span></div>
     </div>
     <pre id="out">—</pre>
     <div class="btnrow">
-      <button id="dlJson" onclick="dlModel()" disabled>Download JSON</button>
+      <button id="dlJson" onclick="dlModel()" disabled><span data-lang="en">Download JSON</span><span data-lang="sk">Stiahni JSON</span></button>
       <button id="dlPy" class="ghost" onclick="dlSnippet()" disabled>Download import.py</button>
     </div>
-    <div class="note">The import script is generated for you to run against your own
-    NetBox (<code>NETBOX_URL</code> + <code>NETBOX_TOKEN</code> as env vars). This
-    site never connects to NetBox and never sees your token.</div>
+    <div class="note">
+      <span data-lang="en">The import script is generated for you to run against your own
+      NetBox (<code>NETBOX_URL</code> + <code>NETBOX_TOKEN</code> as env vars). This
+      site never connects to NetBox and never sees your token.</span>
+      <span data-lang="sk">Import skript sa vygeneruje, aby si ho spustil proti svojmu vlastnému
+      NetBoxu (<code>NETBOX_URL</code> + <code>NETBOX_TOKEN</code> ako env premenné). Táto
+      stránka sa nikdy nepripája na NetBox a nikdy nevidí tvoj token.</span>
+    </div>
   </section>
 </main>
 
 <footer>
-  ENSECNET · open-source · companion to a standalone NetBox deployment ·
-  <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em>
+  <span data-lang="en">ENSECNET · open-source · companion to a standalone NetBox deployment ·
+  <em>Great infrastructure is invisible — its absence is not.</em></span>
+  <span data-lang="sk">ENSECNET · open-source · doplnok k samostatnému NetBox nasadeniu ·
+  <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></span>
 </footer>
 
 <script>
 let model = null;
 
+// ── i18n ──────────────────────────────────────────────────────────────
+const STR = {
+  conv:    { en: "converting…",                  sk: "konvertujem…" },
+  need:    { en: "provide a file or paste config", sk: "nahraj súbor alebo vlož config" },
+  failp:   { en: "parse failed",                 sk: "parsovanie zlyhalo" },
+  done:    { en: "converted: ",                  sk: "skonvertované: " },
+  sample:  { en: "sample loaded — press Convert", sk: "vzorka načítaná — stlač Konvertuj" },
+};
+function lang(){ return localStorage.getItem("ensecnet-lang") || "en"; }
+function T(k){ return (STR[k] && STR[k][lang()]) || k; }
+function applyLang(l){
+  document.documentElement.setAttribute("lang", l);
+  document.querySelectorAll("[data-lang]").forEach(function(el){
+    const on = el.getAttribute("data-lang") === l;
+    const inline = el.tagName === "SPAN";
+    el.style.display = on ? (inline ? "inline" : "block") : "none";
+  });
+  document.querySelectorAll(".lang-btn").forEach(function(b){
+    b.classList.toggle("active", b.getAttribute("data-set") === l);
+  });
+}
+function setLang(l){ localStorage.setItem("ensecnet-lang", l); applyLang(l); }
+document.querySelectorAll(".lang-btn").forEach(function(b){
+  b.addEventListener("click", function(){ setLang(b.getAttribute("data-set")); });
+});
+applyLang(lang());
+
+// ── app ───────────────────────────────────────────────────────────────
 function setSt(msg,cls){ const e=document.getElementById('st'); e.textContent=msg; e.className='status '+(cls||''); }
 
 async function parseCfg(){
-  setSt('converting…','pending');
+  setSt(T('conv'),'pending');
   let config = document.getElementById('cfgText').value;
   const f = document.getElementById('cfgFile').files[0];
   if(f) config = await f.text();
-  if(!config || !config.trim()){ setSt('provide a file or paste config','bad'); return; }
+  if(!config || !config.trim()){ setSt(T('need'),'bad'); return; }
   try{
     const r = await fetch('/api/parse',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({config})});
     const d = await r.json();
-    if(!r.ok){ setSt(d.error||'parse failed','bad'); return; }
+    if(!r.ok){ setSt(d.error||T('failp'),'bad'); return; }
     model = d; render();
-    setSt('converted: '+d.name,'ok');
+    setSt(T('done')+d.name,'ok');
   }catch(e){ setSt(String(e),'bad'); }
 }
 
@@ -171,7 +224,7 @@ snmp-server community CORP-RO RO
 ntp server 10.0.0.10
 !
 end\`;
-  setSt('sample loaded — press Convert','');
+  setSt(T('sample'),'');
 }
 </script>
 </body>
