@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy · ENSECNET CiscoParser Web</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="pages/privacy.html">
+<div class="layout">
+<aside class="sidebar"><div class="brand"><span class="dot"></span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<main class="content">
+<h1>Privacy</h1>
+<p class="sub">The web edition never pushes to NetBox, and never sees your token.</p>
+<div class="callout">No config you paste is stored. No NetBox URL or token is ever sent to this service. The model and the import script are generated and handed back to you — that is the whole interaction.</div>
+<h2>Why no live push</h2>
+<p>NetBox lives on a private network the Cloudflare edge cannot reach, and an API token is sensitive. Pushing from a public site would mean sending an admin token through a third party — exactly the thing a security-minded operator should refuse.</p>
+<h2>What you get instead</h2>
+<p>A downloadable <code>import.py</code> that contains your parsed model inline. You run it yourself, on your own host, against your own NetBox:</p>
+<pre><code>NETBOX_URL=http://netbox.local:8080 NETBOX_TOKEN=xxxx python3 import.py</code></pre>
+<p>The token is read from your environment and never leaves your machine.</p>
+<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</main></div>
+<script src="../assets/nav.js"></script>
+</body></html>

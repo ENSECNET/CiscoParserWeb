@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works · ENSECNET CiscoParser Web</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="pages/how.html">
+<div class="layout">
+<aside class="sidebar"><div class="brand"><span class="dot"></span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<main class="content">
+<h1>How it works</h1>
+<p class="sub">A pure-JavaScript parser running on the Cloudflare edge — no server, no database.</p>
+<h2>Endpoints</h2>
+<table><tr><th>Method</th><th>Path</th><th>Purpose</th></tr>
+<tr><td>GET</td><td><code>/</code></td><td>the converter UI</td></tr>
+<tr><td>POST</td><td><code>/api/parse</code></td><td><code>{config}</code> → NetBox model JSON</td></tr>
+<tr><td>POST</td><td><code>/api/snippet</code></td><td><code>{model}</code> → <code>import.py</code> text</td></tr></table>
+<h2>Output</h2>
+<ul>
+<li><strong>Model JSON</strong> — drop into automation, diff against last time, or archive.</li>
+<li><strong>import.py</strong> — a self-contained pynetbox script you run on a host that can reach your own NetBox, with your own <code>NETBOX_URL</code> / <code>NETBOX_TOKEN</code>.</li>
+</ul>
+<h2>Parser parity</h2>
+<p>The JS parser produces the same model shape as the Python on-prem edition (<code>name, platform, interfaces[], vlans[], vrfs[], config_context{}</code>), so the JSON and the generated script are interchangeable with the on-prem tool.</p>
+<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</main></div>
+<script src="../assets/nav.js"></script>
+</body></html>

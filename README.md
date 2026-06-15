@@ -1,72 +1,68 @@
-# ENSECNET · CiscoParser Web
+<div align="center">
 
-A public, zero-install converter: paste a Cisco IOS-XE `running-config`, get a
-structured **NetBox-ready model** — interfaces, IPs, VLANs, VRFs, plus
-routing / AAA / SNMP / etc. captured as config context.
+# CiscoParser Web
 
-Runs entirely on a **Cloudflare Worker**. The parser is pure JavaScript (V8), no
-backend, no database. **Nothing is stored, and no NetBox credentials ever touch
-this service.**
+**Public, in-browser Cisco → NetBox converter**
 
-Companion to the on-prem [`CiscoParser`](https://github.com/TencoNemaStrach/CiscoParser)
+Paste a Cisco IOS-XE `running-config`, get a NetBox-ready model. Nothing stored, no credentials leave your machine.
+
+[![Docs](https://img.shields.io/badge/📖_Documentation-View_full_docs-0bb3a0?style=for-the-badge)](https://ensecnet.github.io/CiscoParserWeb/)
+[![License](https://img.shields.io/badge/License-Apache_2.0-131c2b?style=for-the-badge)](LICENSE)
+[![On-prem edition](https://img.shields.io/badge/On--prem-CiscoParser-2ea043?style=for-the-badge)](https://github.com/TencoNemaStrach/CiscoParser)
+
+</div>
+
+---
+
+> ### 📖 [**Read the full documentation →**](https://ensecnet.github.io/CiscoParserWeb/)
+>
+> How it works, privacy model, deployment — published as a documentation site with
+> sidebar navigation. This README is the summary.
+
+---
+
+Runs entirely on a **Cloudflare Worker**. The parser is pure JavaScript (V8) — no
+backend, no database. The web edition **never pushes to NetBox and never sees your
+token**.
+
+```
+paste config ──► parse (Worker) ──► model JSON
+                                  ├─► Download JSON
+                                  └─► Download import.py (run it yourself)
+```
+
+Companion to the on-prem [CiscoParser](https://github.com/TencoNemaStrach/CiscoParser)
 (FastAPI + Docker, live NetBox push) and to a standalone NetBox deployment.
-
-> Why a parser helps you document a network: see
-> [`docs/why-and-what.md`](docs/why-and-what.md).
-
-## How it works
-
-```
-paste config ──► /api/parse (Worker, JS) ──► NetBox model JSON
-                                              ├─► Download JSON
-                                              └─► Download import.py  (run it yourself)
-```
-
-Because NetBox lives on a private network and a token is sensitive, the web edition
-does **not** push. Instead it returns:
-
-- the **model as JSON** (drop into automation, diff, or archive), and
-- a self-contained **`import.py`** (pynetbox) you run on a host that can reach your
-  own NetBox, with your own `NETBOX_URL` / `NETBOX_TOKEN`. The token never leaves
-  your machine.
-
-## Repo layout
-
-```
-CiscoParserWeb/
-├── wrangler.jsonc          Worker config (custom domain cisco.ensecnet.net)
-├── src/
-│   ├── index.js            Worker entry — UI + /api/parse + /api/snippet
-│   ├── parser.js           pure-JS IOS-XE parser (port of the Python edition)
-│   ├── snippet.js          generates the pynetbox import.py
-│   └── ui.js               single-page UI
-└── docs/
-    └── why-and-what.md
-```
 
 ## Endpoints
 
-| Method | Path           | Purpose                          |
-|--------|----------------|----------------------------------|
-| GET    | `/`            | the converter UI                 |
-| POST   | `/api/parse`   | `{config}` → NetBox model JSON   |
-| POST   | `/api/snippet` | `{model}` → `import.py` text     |
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/` | the converter UI |
+| POST | `/api/parse` | `{config}` → NetBox model JSON |
+| POST | `/api/snippet` | `{model}` → `import.py` text |
 
-## Deploy (ENSECNET workflow)
+## Deploy
 
 1. Upload this repo to GitHub (`TencoNemaStrach/CiscoParserWeb`).
 2. Cloudflare → Workers & Pages → **Import a repository** → select the repo.
 3. Deploy command: `npx wrangler deploy`. Build command: empty.
-4. `wrangler.jsonc` binds the custom domain `cisco.ensecnet.net`.
 
-Push to `main` → Cloudflare auto-deploys.
+`wrangler.jsonc` binds the custom domain `cisco.ensecnet.net`. Push to `main` →
+auto-deploy.
 
 ## Parser parity
 
-The JS parser produces the same model shape as the Python on-prem edition
-(`name, platform, interfaces[], vlans[], vrfs[], config_context{}`), so the JSON and
-the generated `import.py` are interchangeable with the on-prem tool.
+Same model shape as the Python on-prem edition (`name, platform, interfaces[],
+vlans[], vrfs[], config_context{}`), so the JSON and the generated `import.py` are
+interchangeable between editions.
+
+## License
+
+Apache License 2.0 — see [LICENSE](LICENSE).
 
 ---
 
-ENSECNET · open-source · *dobrá infraštruktúra nie je vidieť — jej absencia áno.*
+<div align="center">
+ENSECNET · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em>
+</div>

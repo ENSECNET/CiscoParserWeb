@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview · ENSECNET CiscoParser Web</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-root="" data-page="index.html">
+<div class="layout">
+<aside class="sidebar"><div class="brand"><span class="dot"></span><div><b>CiscoParser Web</b><span>ENSECNET · public converter</span></div></div><nav class="nav"></nav></aside>
+<main class="content">
+<h1>CiscoParser Web</h1>
+<p class="sub">A public, zero-install converter — turn a Cisco running-config into a NetBox-ready model, in your browser.</p>
+<span class="badge ok">Cloudflare Worker</span> <span class="badge">pure JavaScript</span> <span class="badge">nothing stored</span>
+<div class="callout">Paste a Cisco IOS-XE <code>running-config</code> and get a structured NetBox model — interfaces, IPs, VLANs, VRFs, plus routing / AAA / SNMP captured as config context. Everything runs in your browser session. No backend database, no credentials leave your machine.</div>
+<h2>How it works</h2>
+<div class="flow">paste config ──► parse (Worker, JS) ──► NetBox model JSON
+                                       ├─► Download JSON
+                                       └─► Download import.py (run it yourself)</div>
+<p>Because NetBox lives on a private network and a token is sensitive, the web edition does <strong>not</strong> push. It returns the model as JSON and a self-contained <code>import.py</code> you run against your own NetBox. See <a href="pages/privacy.html">Privacy</a>.</p>
+<h2>Editions</h2>
+<table><tr><th>Edition</th><th>Runs on</th><th>NetBox</th></tr>
+<tr><td>CiscoParser Web (this repo)</td><td>Cloudflare Worker</td><td>Download JSON + generated import script</td></tr>
+<tr><td><a href="https://github.com/TencoNemaStrach/CiscoParser">CiscoParser</a></td><td>Proxmox LXC + Docker</td><td>Live push over the local network</td></tr></table>
+<footer>ENSECNET · open-source · <em>dobrá infraštruktúra nie je vidieť — jej absencia áno.</em></footer>
+</main></div>
+<script src="assets/nav.js"></script>
+</body></html>
