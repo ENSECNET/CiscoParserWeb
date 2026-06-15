@@ -20,6 +20,10 @@ export const PAGE = `<!DOCTYPE html>
   header h1{font-size:15px;margin:0;letter-spacing:.5px;font-weight:600}
   header .ver{color:var(--muted);font-size:12px}
   header .spacer{flex:1}
+  .hdr-link{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--muted);
+    text-decoration:none;padding:3px 10px;border:1px solid var(--line);border-radius:5px;
+    margin-right:8px}
+  .hdr-link:hover{color:var(--ink);background:var(--panel)}
   .lang-switch{display:flex;gap:4px}
   .lang-btn{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.5px;
     padding:3px 10px;border:1px solid var(--line);background:var(--bg);color:var(--muted);
@@ -57,6 +61,7 @@ export const PAGE = `<!DOCTYPE html>
   <h1>ENSECNET&nbsp;·&nbsp;CISCOPARSER</h1>
   <span class="ver">Cisco IOS-XE → NetBox model · web</span>
   <span class="spacer"></span>
+  <a class="hdr-link" href="https://ensecnet.github.io/CiscoParserWeb/" target="_blank" rel="noopener">Docs</a>
   <span class="lang-switch">
     <button class="lang-btn" data-set="en">EN</button>
     <button class="lang-btn" data-set="sk">SK</button>
